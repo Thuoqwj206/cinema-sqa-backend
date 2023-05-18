@@ -8,4 +8,5 @@ import java.util.List;
 
 public interface IMovieRepository extends JpaRepository<Movie,Integer> {
     List<Movie> findAllByNameContaining(String name);
+    List<Movie> findAllByCategoriesContaining(String categories);
 }

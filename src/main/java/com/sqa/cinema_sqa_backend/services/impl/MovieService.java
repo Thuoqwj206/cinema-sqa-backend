@@ -1,6 +1,9 @@
 package com.sqa.cinema_sqa_backend.services.impl;
 
 import com.sqa.cinema_sqa_backend.dtos.MovieDTO;
+import com.sqa.cinema_sqa_backend.entities.Movie;
+import com.sqa.cinema_sqa_backend.form.CreatingMovieForm;
+import com.sqa.cinema_sqa_backend.form.UpdatingMovieForm;
 import com.sqa.cinema_sqa_backend.repositories.IMovieRepository;
 import com.sqa.cinema_sqa_backend.services.IMovieService;
 import org.modelmapper.ModelMapper;
@@ -37,4 +40,29 @@ public class MovieService implements IMovieService {
                 .stream().map(movie -> modelMapper.map(movie,MovieDTO.class))
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public List<MovieDTO> findMoviesByCategories(String categories) {
+        return null;
+    }
+
+    @Override
+    public void createMovie(CreatingMovieForm movie) {
+        movieRepository.save(modelMapper.map(movie, Movie.class));
+    }
+
+    @Override
+    public void deleteMovies(List<Integer> ids) {
+        for (Integer id: ids){
+            movieRepository.delete(modelMapper.map(getById(id),Movie.class));
+        }
+    }
+
+    @Override
+    public void updateMovie(UpdatingMovieForm movie, Integer id) {
+        movie.setId(id);
+        movieRepository.save(modelMapper.map(movie,Movie.class));
+    }
+
+
 }
